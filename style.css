@@ -1,13 +1,27 @@
 /* CSS FILE: styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 body {
     text-align: center;
     font-family: Arial, sans-serif;
+    background-color: #8ecae6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
 }
 .container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 300px;
+    height: 150px;
     margin-top: 20px;
 }
 .bar {
@@ -16,6 +30,31 @@ body {
     background-color: steelblue;
 }
 button {
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+.visulaizer_container {
+    align-items: center;
+    width: 30%;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: 50px;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.sort_btn {
+    margin-top: 10px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+input {
     margin: 10px;
     padding: 10px;
     cursor: pointer;

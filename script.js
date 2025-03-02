@@ -61,4 +61,12 @@ async function swap(i, j) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+function clicked(){
+    var element = document.getElementById("theory_contant");
+    element.scrollIntoView();
+}
+function show_theory() {
+    document.getElementById('bubbleSort_theory').style.display = "block";
+}
+
 generateBars();

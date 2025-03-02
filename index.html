@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorting Visualizer</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <h1>Sorting Visualizer</h1>
-    <button onclick="generateBars()">Generate Bars</button>
-    <button onclick="bubbleSort()">Bubble Sort</button>
-    <button onclick="selectionSort()">Selection Sort</button>
-    <button onclick="insertionSort()">Insertion Sort</button>
-    <div class="container" id="bars"></div>
+
+    <div class="visulaizer_container">
+        <h1>Sorting Visualizer</h1>
+        <button class="generateBars" onclick="generateBars()">Generate Bars</button>
+        <div class="sort_btn">
+            <!-- <button onclick="bubbleSort(),clicked()">Bubble Sort</button> -->
+            <input type="button" name="answer" value="Bubble Sort" onclick="show_theory(), bubbleSort()" />
+            <button onclick="selectionSort()">Selection Sort</button>
+            <button onclick="insertionSort()">Insertion Sort</button>
+        </div>
+        
+        <div class="container" id="bars">
+        </div>
+    </div>
+    
+    <div id="bubbleSort_theory"  style="display:none;" class="answer_list" > 
+        <p>
+           Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in the wrong order. This algorithm is not suitable for large data sets as its average and worst-case time complexity are quite high.
+       </p>
+     </div>
+     
     <script src="script.js"></script>
 </body>
 </html>
