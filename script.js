@@ -1,72 +1,74 @@
-/* JS FILE: script.js */
-let bars = [];
-function generateBars() {
-    const container = document.getElementById("bars");
-    container.innerHTML = "";
-    bars = [];
-    for (let i = 0; i < 20; i++) {
-        let value = Math.floor(Math.random() * 100) + 10;
-        let bar = document.createElement("div");
-        bar.style.height = value + "px";
-        bar.classList.add("bar");
-        bars.push({ element: bar, value });
-        container.appendChild(bar);
-    }
-}
-async function bubbleSort() {
-    for (let i = 0; i < bars.length - 1; i++) {
-        for (let j = 0; j < bars.length - i - 1; j++) {
-            if (bars[j].value > bars[j + 1].value) {
-                await swap(j, j + 1);
-            }
-        }
-    }
-}
-async function selectionSort() {
-    for (let i = 0; i < bars.length; i++) {
-        let minIdx = i;
-        for (let j = i + 1; j < bars.length; j++) {
-            if (bars[j].value < bars[minIdx].value) {
-                minIdx = j;
-            }
-        }
-        await swap(i, minIdx);
-    }
-}
-async function insertionSort() {
-    for (let i = 1; i < bars.length; i++) {
-        let key = bars[i];
-        let j = i - 1;
-        while (j >= 0 && bars[j].value > key.value) {
-            bars[j + 1] = bars[j];
-            j--;
-        }
-        bars[j + 1] = key;
-        updateBars();
-        await sleep(100);
-    }
-}
-function updateBars() {
-    const container = document.getElementById("bars");
-    container.innerHTML = "";
-    bars.forEach(bar => container.appendChild(bar.element));
-}
-async function swap(i, j) {
-    await sleep(100);
-    let temp = bars[i];
-    bars[i] = bars[j];
-    bars[j] = temp;
-    updateBars();
-}
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-function clicked(){
-    var element = document.getElementById("theory_contant");
-    element.scrollIntoView();
-}
-function show_theory() {
-    document.getElementById('bubbleSort_theory').style.display = "block";
+const sizeRange = document.getElementById("sizeRange");
+const sizeValue = document.getElementById("sizeValue");
+
+sizeRange.addEventListener("input", () => {
+  sizeValue.textContent = sizeRange.value;
+  generateArray(); // regenerate on size change
+});
+
+
+function generateArray() {
+  array = [];
+  const visualizerElement = document.getElementById("visualizer");
+  const visualizerWidth = visualizerElement.offsetWidth;
+
+  visualizerElement.innerHTML = "";
+
+  const barCount = parseInt(document.getElementById("sizeRange").value);
+  const barWidth = Math.max(2, Math.floor(visualizerWidth / barCount));
+
+  for (let i = 0; i < barCount; i++) {
+    const visualizerHeight = visualizerElement.offsetHeight;
+    const maxBarHeight = visualizerHeight - 20; // leave padding space
+    const value = Math.floor(Math.random() * maxBarHeight) + 10;
+
+    array.push(value);
+
+    const bar = document.createElement("div");
+    bar.classList.add("bar");
+    bar.style.height = `${value}px`;
+    bar.style.width = `${barWidth}px`;
+
+    visualizerElement.appendChild(bar);
+  }
+
+  console.log("Bar count:", barCount, "| Bar width:", barWidth);
 }
 
-generateBars();
+
+
+function getSpeed() {
+  const range = document.getElementById("speedRange").value;
+  return 200 - range * 1.8; // Speed scaling
+}
+
+
+
+function startSort() {
+  const algo = document.getElementById("algorithm-select").value;
+  const bars = document.querySelectorAll(".bar");
+  const speed = getSpeed();
+
+  if (algo === "bubble") {
+    bubbleSort([...array], bars, speed);
+  } else if (algo === "selection") {
+    selectionSort([...array], bars, speed);
+  } else if (algo === "insertion") {
+    insertionSort([...array], bars, speed);
+  } else if (algo === "merge") {
+    mergeSort([...array], bars, speed);
+  } else if (algo === "quick") {
+    quickSort([...array], bars, speed);
+  }  
+}
+
+// Load default theory
+document.getElementById("algorithm-select").addEventListener("change", (e) => {
+  loadTheory(e.target.value);
+});
+
+// Initial load
+window.onload = () => {
+  generateArray();
+  loadTheory("bubble");
+};
